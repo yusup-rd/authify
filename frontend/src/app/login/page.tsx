@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
+import Link from "next/link";
 
 const LoginPage = () => {
     const router = useRouter();
@@ -118,6 +119,12 @@ const LoginPage = () => {
                         </Form>
                     )}
                 </Formik>
+                <Link
+                    href="/register"
+                    className="block text-center text-purple-200 font-semibold mt-2 hover:text-purple-400 transition duration-200"
+                >
+                    Don&apos;t have an account yet? Register
+                </Link>
             </div>
         </div>
     );

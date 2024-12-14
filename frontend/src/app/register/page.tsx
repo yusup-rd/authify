@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
+import Link from "next/link";
 
 const RegisterPage = () => {
     const router = useRouter();
@@ -70,7 +71,9 @@ const RegisterPage = () => {
     return (
         <div className="min-h-screen flex items-center justify-center text">
             <div className="bg-slate-800 p-8 rounded-lg shadow-lg max-w-lg w-full">
-                <h1 className="text-2xl font-bold text-center mb-4">Register</h1>
+                <h1 className="text-2xl font-bold text-center mb-4">
+                    Register
+                </h1>
                 {errorMessage && (
                     <p className="text-red-500 text-center">{errorMessage}</p>
                 )}
@@ -158,6 +161,12 @@ const RegisterPage = () => {
                         </Form>
                     )}
                 </Formik>
+                <Link
+                    href="/login"
+                    className="block text-center text-purple-200 font-semibold mt-2 hover:text-purple-400 transition duration-200"
+                >
+                    Already have an account? Login
+                </Link>
             </div>
         </div>
     );
