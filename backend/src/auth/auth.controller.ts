@@ -30,6 +30,7 @@ export class AuthController {
       .send({
         message: 'Login successful',
         accessToken,
+        status: 200,
       });
   }
 
@@ -41,6 +42,6 @@ export class AuthController {
       path: '/',
     });
 
-    res.send({ message: 'Logout successful' });
+    res.send({ message: 'Logout successful', status: 200 });
   }
 }

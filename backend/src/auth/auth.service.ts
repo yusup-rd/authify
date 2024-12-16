@@ -21,7 +21,10 @@ export class AuthService {
     username: string,
     email: string,
     password: string,
-  ): Promise<User> {
+  ): Promise<{
+    message: string;
+    user: { id: string; username: string; email: string };
+  }> {
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = this.userRepository.create({
       username,
@@ -30,7 +33,18 @@ export class AuthService {
     });
 
     try {
-      return await this.userRepository.save(user);
+      const savedUser = await this.userRepository.save(user);
+
+      const response = {
+        message: 'Registration successful',
+        user: {
+          id: savedUser.id,
+          username: savedUser.username,
+          email: savedUser.email,
+        },
+        status: 200,
+      };
+      return response;
     } catch (error) {
       if (error.code === '23505') {
         throw new ConflictException(
@@ -65,8 +79,10 @@ export class AuthService {
       email: user.email,
       sub: user.id,
     };
-    const accessToken = this.jwtService.sign(payload);
-
+    const accessToken = this.jwtService.sign(payload, {
+      secret: process.env.JWT_SECRET || 'jwtsecret',
+      expiresIn: '1h',
+    });
     return {
       accessToken,
       user: { username: user.username, email: user.email, id: user.id },
