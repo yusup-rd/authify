@@ -1,24 +1,43 @@
-import React from "react";
+"use client";
+
+import { useRouter } from "next/navigation";
 import Link from "next/link";
+import axios from "axios";
 
 const Navbar = () => {
+    const router = useRouter();
+
+    const handleLogout = async () => {
+        try {
+            const backendUrl =
+                process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8000";
+
+            await axios.post(
+                `${backendUrl}/auth/logout`,
+                {},
+                { withCredentials: true }
+            );
+        } catch (error) {
+            console.error("Error during logout:", error);
+        }
+
+        router.push("/login");
+    };
+
     return (
         <nav className="fixed top-0 left-0 right-0 bg-slate-800 text-white p-4 shadow-md z-10">
-            <div className="max-w-6xl mx-auto flex justify-between items-center">
+            <div className="max-w-6xl mx-auto flex justify-between">
                 <div className="font-bold text-xl">User Management App</div>
-                <div className="flex space-x-4">
-                    <Link
-                        href="/login"
-                        className="text-white py-2 px-4 rounded-md hover:bg-purple-600 transition duration-200"
-                    >
-                        Login
+                <div>
+                    <Link href="/profile" className="mr-4">
+                        My Profile
                     </Link>
-                    <Link
-                        href="/register"
-                        className="text-white py-2 px-4 rounded-md hover:bg-purple-600 transition duration-200"
+                    <button
+                        className="bg-purple-600 text-white px-4 py-2 rounded-md"
+                        onClick={handleLogout}
                     >
-                        Register
-                    </Link>
+                        Logout
+                    </button>
                 </div>
             </div>
         </nav>

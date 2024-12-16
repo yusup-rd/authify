@@ -1,6 +1,7 @@
-import { Controller, Post, Body, BadRequestException } from '@nestjs/common';
+import { Controller, Post, Body, Response } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dtos/register.dto';
+import { LoginDto } from './dtos/login.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -10,10 +11,36 @@ export class AuthController {
   async register(@Body() body: RegisterDto) {
     const { password, ...rest } = body;
 
-    if (password.length < 8) {
-      throw new BadRequestException('Password must be at least 8 characters');
-    }
-    
     return await this.authService.register(rest.username, rest.email, password);
+  }
+
+  @Post('login')
+  async login(@Body() body: LoginDto, @Response() res) {
+    const { email, password } = body;
+
+    const { accessToken } = await this.authService.login(email, password);
+
+    res
+      .cookie('accessToken', accessToken, {
+        httpOnly: true,
+        secure: true,
+        maxAge: 60 * 60 * 1000,
+        path: '/',
+      })
+      .send({
+        message: 'Login successful',
+        accessToken,
+      });
+  }
+
+  @Post('logout')
+  async logout(@Response() res) {
+    res.clearCookie('accessToken', {
+      httpOnly: true,
+      secure: true,
+      path: '/',
+    });
+
+    res.send({ message: 'Logout successful' });
   }
 }

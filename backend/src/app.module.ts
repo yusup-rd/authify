@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
 import { User } from './entities/user.entity';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { User } from './entities/user.entity';
     }),
     TypeOrmModule.forFeature([User]),
     AuthModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

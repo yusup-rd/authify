@@ -1,5 +1,3 @@
-// app/login/page.tsx
-
 "use client";
 
 import { useState } from "react";
@@ -31,7 +29,7 @@ const LoginPage = () => {
                 process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8000";
 
             const response = await axios.post(
-                `${backendUrl}/auth/login`, // Assuming your backend uses this route for login
+                `${backendUrl}/auth/login`,
                 {
                     email: values.email,
                     password: values.password,
@@ -45,7 +43,7 @@ const LoginPage = () => {
             );
 
             console.log(response.data);
-            router.push("/dashboard"); // Redirect to dashboard after successful login
+            router.push("/");
         } catch (error) {
             console.error(error);
             if (axios.isAxiosError(error)) {
