@@ -172,7 +172,7 @@ const ProfileCard = ({ token }: { token: string }) => {
                                     className="w-full rounded-md p-2 text-black bg-white border border-gray-300"
                                 />
                                 {passwordFormik.errors.currentPassword && (
-                                    <div className="text-red-500 text-sm">
+                                    <div className="text-red-500 text-sm mt-3">
                                         {passwordFormik.errors.currentPassword}
                                     </div>
                                 )}
@@ -188,7 +188,7 @@ const ProfileCard = ({ token }: { token: string }) => {
                                     className="w-full rounded-md p-2 text-black bg-white border border-gray-300"
                                 />
                                 {passwordFormik.errors.newPassword && (
-                                    <div className="text-red-500 text-sm">
+                                    <div className="text-red-500 text-sm mt-3">
                                         {passwordFormik.errors.newPassword}
                                     </div>
                                 )}
@@ -206,7 +206,7 @@ const ProfileCard = ({ token }: { token: string }) => {
                                     className="w-full rounded-md p-2 text-black bg-white border border-gray-300"
                                 />
                                 {passwordFormik.errors.confirmNewPassword && (
-                                    <div className="text-red-500 text-sm">
+                                    <div className="text-red-500 text-sm mt-3">
                                         {
                                             passwordFormik.errors
                                                 .confirmNewPassword
@@ -236,7 +236,7 @@ const ProfileCard = ({ token }: { token: string }) => {
                                     disabled={isEditing !== "details"}
                                 />
                                 {profileFormik.errors.username && (
-                                    <div className="text-red-500 text-sm">
+                                    <div className="text-red-500 text-sm mt-3">
                                         {profileFormik.errors.username}
                                     </div>
                                 )}
@@ -258,7 +258,7 @@ const ProfileCard = ({ token }: { token: string }) => {
                                     disabled={isEditing !== "details"}
                                 />
                                 {profileFormik.errors.email && (
-                                    <div className="text-red-500 text-sm">
+                                    <div className="text-red-500 text-sm mt-3">
                                         {profileFormik.errors.email}
                                     </div>
                                 )}
