@@ -2,15 +2,15 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { login } from "../../api/auth";
+import { login } from "../../utils/api";
 import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import Link from "next/link";
 import axios from "axios";
+import { toast } from "react-toastify"; // Import Toast notifications
 
 const LoginPage = () => {
     const router = useRouter();
-    const [errorMessage, setErrorMessage] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const validationSchema = Yup.object({
@@ -24,19 +24,16 @@ const LoginPage = () => {
 
     const handleLogin = async (values: { email: string; password: string }) => {
         setIsLoading(true);
-        setErrorMessage("");
         try {
-            await login(values.email, values.password);
-
+            const response = await login(values.email, values.password);
+            toast.success(response.message || "Login successful!");
             router.push("/");
         } catch (error) {
             console.error(error);
             if (axios.isAxiosError(error)) {
-                setErrorMessage(
-                    error.response?.data?.message || "Login failed"
-                );
+                toast.error(error.response?.data?.message || "Login failed");
             } else {
-                setErrorMessage("An error occurred. Please try again.");
+                toast.error("An error occurred. Please try again.");
             }
         } finally {
             setIsLoading(false);
@@ -47,9 +44,6 @@ const LoginPage = () => {
         <div className="min-h-screen flex items-center justify-center text">
             <div className="bg-slate-800 p-8 rounded-lg shadow-lg max-w-lg w-full">
                 <h1 className="text-2xl font-bold text-center mb-4">Login</h1>
-                {errorMessage && (
-                    <p className="text-red-500 text-center">{errorMessage}</p>
-                )}
 
                 <Formik
                     initialValues={{

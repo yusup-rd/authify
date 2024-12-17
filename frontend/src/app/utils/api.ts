@@ -44,3 +44,33 @@ export const login = async (email: string, password: string) => {
         throw error;
     }
 };
+
+// Function to get the user
+export const getProfile = async (token: string) => {
+    try {
+        const response = await axios.get(`${backendUrl}/users/profile`, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+// Function to update the user
+export const updateProfile = async (
+    token: string,
+    username: string,
+    email: string
+) => {
+    try {
+        const response = await axios.put(
+            `${backendUrl}/users/profile`,
+            { username, email },
+            { headers: { Authorization: `Bearer ${token}` } }
+        );
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};

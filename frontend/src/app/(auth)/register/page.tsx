@@ -2,15 +2,15 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { register } from "../../api/auth";
+import { register } from "../../utils/api";
 import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import Link from "next/link";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const RegisterPage = () => {
     const router = useRouter();
-    const [errorMessage, setErrorMessage] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const validationSchema = Yup.object({
@@ -33,19 +33,22 @@ const RegisterPage = () => {
         confirmPassword: string;
     }) => {
         setIsLoading(true);
-        setErrorMessage("");
         try {
-            await register(values.username, values.email, values.password);
-
+            const response = await register(
+                values.username,
+                values.email,
+                values.password
+            );
+            toast.success(response.message || "Registration successful!");
             router.push("/login");
         } catch (error) {
             console.error(error);
             if (axios.isAxiosError(error)) {
-                setErrorMessage(
+                toast.error(
                     error.response?.data?.message || "Registration failed"
                 );
             } else {
-                setErrorMessage("An error occurred. Please try again.");
+                toast.error("An error occurred. Please try again.");
             }
         } finally {
             setIsLoading(false);
@@ -58,9 +61,6 @@ const RegisterPage = () => {
                 <h1 className="text-2xl font-bold text-center mb-4">
                     Register
                 </h1>
-                {errorMessage && (
-                    <p className="text-red-500 text-center">{errorMessage}</p>
-                )}
 
                 <Formik
                     initialValues={{
