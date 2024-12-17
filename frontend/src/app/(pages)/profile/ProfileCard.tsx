@@ -271,6 +271,7 @@ const ProfileCard = ({ token }: { token: string }) => {
                     </p>
                 </div>
 
+                {/* Buttons */}
                 <div className="mt-6 space-x-4 flex justify-center">
                     {isEditing ? (
                         <>
