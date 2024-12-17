@@ -74,3 +74,28 @@ export const updateProfile = async (
         throw error;
     }
 };
+
+// Function to handle the change password request
+export const changePassword = async (
+    token: string,
+    currentPassword: string,
+    newPassword: string
+) => {
+    try {
+        const response = await axios.post(
+            `${backendUrl}/users/change-password`,
+            {
+                currentPassword,
+                newPassword,
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
