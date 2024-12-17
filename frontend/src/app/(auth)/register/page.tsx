@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import axios from "axios";
+import { register } from "../../api/auth";
 import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import Link from "next/link";
+import axios from "axios";
 
 const RegisterPage = () => {
     const router = useRouter();
@@ -34,25 +35,8 @@ const RegisterPage = () => {
         setIsLoading(true);
         setErrorMessage("");
         try {
-            const backendUrl =
-                process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8000";
+            await register(values.username, values.email, values.password);
 
-            const response = await axios.post(
-                `${backendUrl}/auth/register`,
-                {
-                    username: values.username,
-                    email: values.email,
-                    password: values.password,
-                },
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    withCredentials: true,
-                }
-            );
-
-            console.log(response.data);
             router.push("/login");
         } catch (error) {
             console.error(error);

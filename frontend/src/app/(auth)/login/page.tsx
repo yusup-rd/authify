@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import axios from "axios";
+import { login } from "../../api/auth";
 import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import Link from "next/link";
+import axios from "axios";
 
 const LoginPage = () => {
     const router = useRouter();
@@ -25,24 +26,8 @@ const LoginPage = () => {
         setIsLoading(true);
         setErrorMessage("");
         try {
-            const backendUrl =
-                process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8000";
+            await login(values.email, values.password);
 
-            const response = await axios.post(
-                `${backendUrl}/auth/login`,
-                {
-                    email: values.email,
-                    password: values.password,
-                },
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    withCredentials: true,
-                }
-            );
-
-            console.log(response.data);
             router.push("/");
         } catch (error) {
             console.error(error);
