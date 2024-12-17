@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { JSX } from "react";
-import ProfileCard from "./ProfileCard";
+import ProfileCard from "../../components/ProfileCard";
 
 const ProfilePage = async (): Promise<JSX.Element> => {
     const cookieStore = await cookies();

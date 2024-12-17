@@ -3,10 +3,11 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { User } from "@/app/types/user";
-import { getProfile, updateProfile, changePassword } from "../../utils/api";
+import { getProfile, updateProfile, changePassword } from "../utils/api";
 import axios from "axios";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import ProfileCardSkeleton from "./ProfileCardSkeleton";
 
 const ProfileCard = ({ token }: { token: string }) => {
     const [user, setUser] = useState<User | null>(null);
@@ -126,7 +127,7 @@ const ProfileCard = ({ token }: { token: string }) => {
     };
 
     if (!user) {
-        return <div>Loading...</div>;
+        return <ProfileCardSkeleton />;
     }
 
     const formattedDate = new Date(user.created_at).toLocaleDateString(
