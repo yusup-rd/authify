@@ -75,14 +75,14 @@ export const updateProfile = async (
     }
 };
 
-// Function to handle the change password request
+// Function to change user password
 export const changePassword = async (
     token: string,
     currentPassword: string,
     newPassword: string
 ) => {
     try {
-        const response = await axios.post(
+        const response = await axios.put(
             `${backendUrl}/users/change-password`,
             {
                 currentPassword,

@@ -303,7 +303,10 @@ const ProfileCard = ({ token }: { token: string }) => {
                             </button>
                             <button
                                 className="bg-purple-600 text-white py-2 px-6 rounded-md hover:bg-purple-700"
-                                onClick={() => setIsEditing("password")}
+                                onClick={() => {
+                                    passwordFormik.resetForm();
+                                    setIsEditing("password");
+                                }}
                             >
                                 Change Password
                             </button>
