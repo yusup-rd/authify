@@ -10,7 +10,7 @@ export class UsersController {
   @UseGuards(JwtAuthGuard)
   @Get('profile')
   async getProfile(@Request() req) {
-    const user = await this.usersService.getProfile(req.user.sub);
+    const user = await this.usersService.getProfile(req.user.userId);
     return { message: 'User fetched successfully', user, status: 200 };
   }
 
