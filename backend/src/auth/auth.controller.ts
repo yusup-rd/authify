@@ -30,7 +30,7 @@ export class AuthController {
       .send({
         message: 'Login successful',
         accessToken,
-        status: 200,
+        status: 201,
       });
   }
 

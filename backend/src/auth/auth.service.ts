@@ -42,10 +42,11 @@ export class AuthService {
           username: savedUser.username,
           email: savedUser.email,
         },
-        status: 200,
+        status: 201,
       };
       return response;
     } catch (error) {
+      console.error('Error during user registration:', error);
       if (error.code === '23505') {
         throw new ConflictException(
           'A user with this email or username already exists',
