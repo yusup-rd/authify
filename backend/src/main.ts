@@ -2,6 +2,8 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import * as cookieParser from 'cookie-parser';
+import helmet from 'helmet';
+import csurf from 'csurf';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -21,7 +23,11 @@ async function bootstrap() {
     }),
   );
 
+  app.use(helmet());
+  
   app.use(cookieParser());
+
+  app.use(csurf({ cookie: true }));
 
   await app.listen(8000);
 }
