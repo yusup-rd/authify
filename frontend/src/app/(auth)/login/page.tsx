@@ -7,7 +7,7 @@ import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import Link from "next/link";
 import axios from "axios";
-import { toast } from "react-toastify"; // Import Toast notifications
+import { toast } from "react-toastify";
 
 const LoginPage = () => {
     const router = useRouter();
@@ -29,7 +29,6 @@ const LoginPage = () => {
             toast.success(response.message || "Login successful!");
             router.push("/");
         } catch (error) {
-            console.error(error);
             if (axios.isAxiosError(error)) {
                 toast.error(error.response?.data?.message || "Login failed");
             } else {

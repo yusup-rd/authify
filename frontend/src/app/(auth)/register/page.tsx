@@ -30,7 +30,6 @@ const RegisterPage = () => {
         username: string;
         email: string;
         password: string;
-        confirmPassword: string;
     }) => {
         setIsLoading(true);
         try {
@@ -42,7 +41,6 @@ const RegisterPage = () => {
             toast.success(response.message || "Registration successful!");
             router.push("/login");
         } catch (error) {
-            console.error(error);
             if (axios.isAxiosError(error)) {
                 toast.error(
                     error.response?.data?.message || "Registration failed"
