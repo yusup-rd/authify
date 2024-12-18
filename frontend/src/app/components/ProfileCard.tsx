@@ -232,6 +232,7 @@ const ProfileCard = ({ token }: { token: string }) => {
                                             : "bg-gray-700 text-slate-300"
                                     }`}
                                     name="username"
+                                    placeholder="Username"
                                     value={profileFormik.values.username}
                                     onChange={profileFormik.handleChange}
                                     disabled={isEditing !== "details"}
@@ -254,6 +255,7 @@ const ProfileCard = ({ token }: { token: string }) => {
                                             : "bg-gray-700 text-slate-300"
                                     }`}
                                     name="email"
+                                    placeholder="Email"
                                     value={profileFormik.values.email}
                                     onChange={profileFormik.handleChange}
                                     disabled={isEditing !== "details"}
