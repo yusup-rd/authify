@@ -46,8 +46,7 @@ export class AuthService {
       };
       return response;
     } catch (error) {
-      console.error('Error during user registration:', error);
-      if (error.code === '23505') {
+      if (error.code === '23505' || error.code === 'SQLITE_CONSTRAINT') {
         throw new ConflictException(
           'A user with this email or username already exists',
         );

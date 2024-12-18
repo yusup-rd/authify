@@ -112,7 +112,7 @@ describe('AuthController', () => {
       expect(res.send).toHaveBeenCalledWith({
         message: 'Login successful',
         accessToken,
-        status: 200,
+        status: 201,
       });
     });
 

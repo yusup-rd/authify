@@ -79,8 +79,10 @@ describe('AuthController (Integration)', () => {
           password: 'Test@1234',
         });
 
-      expect(response.status).toBe(500);
-      expect(response.body.message).toBe('Internal server error');
+      expect(response.status).toBe(409);
+      expect(response.body.message).toBe(
+        'A user with this email or username already exists',
+      );
     });
   });
 

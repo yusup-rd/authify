@@ -82,7 +82,7 @@ describe('AuthService', () => {
           username: 'testuser',
           email: 'test@example.com',
         },
-        status: 200,
+        status: 201,
       });
     });
 
