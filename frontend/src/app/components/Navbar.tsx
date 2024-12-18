@@ -30,7 +30,7 @@ const Navbar = () => {
         <nav className="fixed top-0 left-0 right-0 bg-slate-800 text-white p-4 shadow-md z-10">
             <div className="max-w-6xl mx-auto flex justify-between">
                 <Link href="/" className="font-bold text-xl mt-1">
-                    User Management App
+                    Authify
                 </Link>
                 <div>
                     <Link
