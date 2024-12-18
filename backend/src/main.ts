@@ -3,11 +3,12 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import * as cookieParser from 'cookie-parser';
 import helmet from 'helmet';
-import csurf from 'csurf';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  // Enable CORS for the frontend
   app.enableCors({
     origin: 'http://localhost:3000',
     methods: 'GET,POST,PUT,DELETE',
@@ -15,6 +16,7 @@ async function bootstrap() {
     credentials: true,
   });
 
+  // Enable validation for all incoming requests
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -23,11 +25,21 @@ async function bootstrap() {
     }),
   );
 
+  // Enable security features
   app.use(helmet());
-  
+
+  // Enable cookie parsing
   app.use(cookieParser());
 
-  app.use(csurf({ cookie: true }));
+  // Enable Swagger documentation
+  const config = new DocumentBuilder()
+    .setTitle('Authify API')
+    .setDescription('API documentation for Authify')
+    .setVersion('1.0')
+    .addBearerAuth()
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api-docs', app, document);
 
   await app.listen(8000);
 }
