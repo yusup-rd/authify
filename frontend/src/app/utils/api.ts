@@ -45,6 +45,19 @@ export const login = async (email: string, password: string) => {
     }
 };
 
+// Function to logout
+export const logout = async () => {
+    try {
+        await axios.post(
+            `${backendUrl}/auth/logout`,
+            {},
+            { withCredentials: true }
+        );
+    } catch (error) {
+        throw error;
+    }
+};
+
 // Function to get the user
 export const getProfile = async (token: string) => {
     try {

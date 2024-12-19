@@ -9,8 +9,9 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   // Enable CORS for the frontend
+  const frontendPort = process.env.FRONTEND_PORT || 3000;
   app.enableCors({
-    origin: 'http://localhost:3000',
+    origin: `http://localhost:${frontendPort}`,
     methods: 'GET,POST,PUT,DELETE',
     allowedHeaders: 'Content-Type, Authorization, Cookie',
     credentials: true,
@@ -41,7 +42,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api-docs', app, document);
 
-  await app.listen(8000);
+  await app.listen(process.env.BACKEND_PORT || 8000);
 }
 
 bootstrap();

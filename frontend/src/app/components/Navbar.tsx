@@ -2,7 +2,7 @@
 
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
-import axios from "axios";
+import { logout } from "../utils/api";
 
 const Navbar = () => {
     const router = useRouter();
@@ -11,14 +11,7 @@ const Navbar = () => {
 
     const handleLogout = async () => {
         try {
-            const backendUrl =
-                process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8000";
-
-            await axios.post(
-                `${backendUrl}/auth/logout`,
-                {},
-                { withCredentials: true }
-            );
+            await logout();
         } catch (error) {
             console.error("Error during logout:", error);
         }
