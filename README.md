@@ -1,5 +1,7 @@
 # Authify
 
+> Test Task Fullstack Application.
+
 Authify is a user management system built using **Next.js** (frontend) and **NestJS** (backend). It features user registration, authentication, profile management, and secure password handling. The project uses **Tailwind CSS** for UI and **PostgreSQL** as the database.
 
 ## Features
